@@ -249,7 +249,7 @@ export default function AdminDashboard() {
                   <input
                     type="checkbox"
                     checked={!!f.messageApproved}
-                    onChange={(e) => setMessageApproved(f.id, e.target.checked)}
+                    onChange={(e) => setMessageApproved(f, e.target.checked)}
                   />
                   mostrar no mural
                 </label>

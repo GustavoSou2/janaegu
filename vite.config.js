@@ -6,7 +6,7 @@ export default defineConfig({
   // Por padrão o Vite só expõe pro cliente variáveis prefixadas com "VITE_" (proteção
   // contra vazar segredos do servidor sem querer). Como não usamos esse prefixo,
   // listamos explicitamente os prefixos que podem ir pro bundle do navegador.
-  envPrefix: ['FIREBASE_', 'FUNCTIONS_'],
+  envPrefix: ['FIREBASE_'],
   plugins: [
     react(),
     VitePWA({

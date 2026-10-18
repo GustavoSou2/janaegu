@@ -7,27 +7,52 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Nenhuma leitura/escrita pública: todo o caminho do convidado passa pelas
-    // Cloud Functions (Admin SDK, que ignora estas regras). O painel admin
-    // autenticado usa o SDK do cliente diretamente.
+    function unchangedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    // O convidado nunca lista famílias — só consegue "get" num documento cujo ID
+    // (o próprio inviteToken) ele já precisa saber de antemão (veio do link do WhatsApp).
+    // É o mesmo modelo de segurança de antes (posse do token = acesso), só que aplicado
+    // direto pelas regras em vez de por uma Cloud Function.
+    function isPublicRsvpUpdate() {
+      let allowedKeys = ['status', 'confirmedCount', 'message', 'messageApproved', 'declineReason', 'respondedAt'];
+      return unchangedKeys().hasOnly(allowedKeys)
+        && request.resource.data.messageApproved == false
+        && request.resource.data.status in ['pendente', 'parcial', 'confirmado', 'recusado'];
+    }
+
+    function isPublicGuestAttendingUpdate() {
+      return unchangedKeys().hasOnly(['attending'])
+        && (request.resource.data.attending == true || request.resource.data.attending == false);
+    }
+
     match /families/{familyId} {
-      allow read, write: if isAdmin();
+      allow get: if true;
+      allow list: if isAdmin();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || isPublicRsvpUpdate();
 
       match /guests/{guestId} {
-        allow read, write: if isAdmin();
+        allow get, list: if true;
+        allow create, delete: if isAdmin();
+        allow update: if isAdmin() || isPublicGuestAttendingUpdate();
       }
+    }
+
+    // Espelho só de leitura pública do mural (nome + texto aprovado), mantido pelo
+    // painel admin ao aprovar/desaprovar um recado. Convidado só pode apagar a própria
+    // entrada (ao reenviar o RSVP, que reseta a aprovação) — nunca criar ou editar texto.
+    match /publicMessages/{familyId} {
+      allow get, list: if true;
+      allow delete: if true;
+      allow create, update: if isAdmin();
     }
 
     // Dados do evento: leitura pública (sem informação sensível), escrita só do admin.
     match /settings/{docId} {
       allow read: if true;
       allow write: if isAdmin();
-    }
-
-    // Tokens de push: só as Cloud Functions escrevem (Admin SDK); admin pode ler para debug.
-    match /pushSubscriptions/{subId} {
-      allow read: if isAdmin();
-      allow write: if false;
     }
   }
 }

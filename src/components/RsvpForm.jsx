@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { submitRsvp } from '../lib/api';
+import { submitPublicRsvp } from '../lib/families';
 
 function initialGuestState(guests) {
   return guests.map((g) => ({ ...g }));
@@ -49,11 +49,11 @@ export default function RsvpForm({ token, family, settings, onUpdated }) {
         message: message.trim() || null,
         declineReason: allNoneAttending ? declineReason.trim() || null : null
       };
-      const result = await submitRsvp(token, payload);
+      const result = await submitPublicRsvp(token, payload);
       setMode('sent');
       onUpdated(result);
-    } catch (err) {
-      setError(err.message || 'Não deu pra enviar agora. Tenta de novo...');
+    } catch {
+      setError('Não deu pra enviar agora. Tenta de novo...');
     } finally {
       setSending(false);
     }

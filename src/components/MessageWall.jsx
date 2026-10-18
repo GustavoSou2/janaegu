@@ -1,22 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getMessages } from '../lib/api';
+import { watchPublicMessages } from '../lib/families';
 
 export default function MessageWall() {
   const [messages, setMessages] = useState(null); // null = carregando/erro, [] = vazio
 
-  useEffect(() => {
-    let active = true;
-    getMessages()
-      .then((data) => {
-        if (active) setMessages(data.messages || []);
-      })
-      .catch(() => {
-        if (active) setMessages(null);
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
+  useEffect(() => watchPublicMessages(setMessages, () => setMessages(null)), []);
 
   if (messages === null) return null;
 

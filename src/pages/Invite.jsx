@@ -6,9 +6,9 @@ import Countdown from '../components/Countdown';
 import RsvpForm from '../components/RsvpForm';
 import MessageWall from '../components/MessageWall';
 import Reveal from '../components/Reveal';
-import { getInvite, ApiError } from '../lib/api';
+import { getInviteByToken } from '../lib/families';
+import { getSettings } from '../lib/settings';
 import { buildGoogleCalendarLink } from '../lib/calendar';
-import { enablePushNotifications } from '../lib/push';
 
 const STORY_TITLE = 'Nove anos depois daquele café que não acabava mais';
 const STORY_TEXT =
@@ -47,23 +47,27 @@ export default function Invite() {
   const { token } = useParams();
   const [state, setState] = useState({ loading: true, error: null, data: null });
   const [showOpening, setShowOpening] = useState(true);
-  const [pushStatus, setPushStatus] = useState(null);
   const reducedMotion = useReducedMotion();
   const heroRef = useParallax(reducedMotion);
 
   useEffect(() => {
     let active = true;
-    getInvite(token)
-      .then((data) => {
-        if (active) setState({ loading: false, error: null, data });
-      })
-      .catch((err) => {
-        if (active) {
+    Promise.all([getInviteByToken(token), getSettings()])
+      .then(([family, settings]) => {
+        if (!active) return;
+        if (!family) {
           setState({
             loading: false,
-            error: err instanceof ApiError ? err.message : 'Não deu pra abrir o convite agora.',
+            error: 'Convite não encontrado. Confira o link recebido no WhatsApp.',
             data: null
           });
+        } else {
+          setState({ loading: false, error: null, data: { family, settings } });
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setState({ loading: false, error: 'Não deu pra abrir o convite agora. Tenta de novo em instantes.', data: null });
         }
       });
     return () => {
@@ -186,27 +190,9 @@ export default function Invite() {
       <section className="invite-pwa-notice">
         <h6 className="label">Adicionar à tela de início</h6>
         <p>
-          Opcional. Serve pra voltar rápido no dia e, no iPhone com iOS 16.4+, receber avisos — nada aqui exige
-          instalar.
+          Opcional. Serve só pra voltar rápido no dia — nada aqui exige instalar. O WhatsApp continua sendo o
+          canal garantido pra qualquer aviso nosso.
         </p>
-        {pushStatus !== 'ok' && (
-          <button
-            className="btn btn-ghost"
-            style={{ marginTop: 16, borderColor: 'rgba(255,255,255,.3)', color: '#fff' }}
-            onClick={async () => {
-              const result = await enablePushNotifications(token);
-              setPushStatus(result.ok ? 'ok' : result.reason);
-            }}
-          >
-            Ativar avisos no navegador
-          </button>
-        )}
-        {pushStatus === 'ok' && <p style={{ marginTop: 12 }}>Avisos ativados. Obrigado!</p>}
-        {pushStatus === 'unsupported' && (
-          <p style={{ marginTop: 12 }}>
-            Seu navegador não suporta avisos aqui — o WhatsApp continua sendo o canal garantido.
-          </p>
-        )}
       </section>
 
       <section className="invite-closing bw-photo">
