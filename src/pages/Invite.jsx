@@ -185,15 +185,10 @@ export default function Invite() {
         </Reveal>
       )}
 
-      <section className="invite-pwa-notice">
-        <h6 className="label">Adicionar à tela de início</h6>
-        <p>
-          Opcional. Serve só pra voltar rápido no dia — nada aqui exige instalar. O WhatsApp continua sendo o
-          canal garantido pra qualquer aviso nosso.
-        </p>
-      </section>
-
-      <section className="invite-closing bw-photo">
+      <section
+        className="invite-closing bw-photo"
+        style={{ backgroundImage: `url(${settings.closingImageUrl || HERO_IMAGE_URL})` }}
+      >
         <p className="invite-closing-signature">{settings.coupleNames}</p>
       </section>
     </div>

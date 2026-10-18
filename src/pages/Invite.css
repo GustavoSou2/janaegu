@@ -310,26 +310,28 @@
 }
 .invite-links a { text-decoration: none; }
 
-.invite-pwa-notice {
-  background: var(--ink-950);
-  color: #fff;
-  padding: var(--space-6) var(--gutter);
-  text-align: center;
-}
-.invite-pwa-notice p { color: var(--inv-2); max-width: 480px; margin: 8px auto 0; }
-
 .invite-closing {
   height: 60vh;
   min-height: 320px;
   background: var(--ink-800);
-  background-image: var(--grad-stage);
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   padding: var(--gutter);
+  position: relative;
+}
+
+.invite-closing::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0) 50%, rgba(10, 10, 10, .75) 100%);
 }
 
 .invite-closing-signature {
+  position: relative;
   color: #fff;
   font-family: var(--font-heading);
   font-size: var(--scale-h3);

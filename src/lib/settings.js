@@ -18,6 +18,9 @@ export const DEFAULT_SETTINGS = {
   rsvpDeadlineLabel: '20 de novembro',
   giftListUrl: '',
   shareImageUrl: '/convite-compartilhar.jpg',
+  // Foto grande de fechamento, no fim do convite. Sem uma segunda foto própria,
+  // o Invite.jsx reaproveita a mesma foto do topo (HERO_IMAGE_URL) como padrão.
+  closingImageUrl: null,
   waitlistNoticeToGuest: false,
   declineAllowsMessage: true,
   whatsappMessageTemplate: null
