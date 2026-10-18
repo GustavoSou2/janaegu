@@ -1,14 +1,17 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Invite from './pages/Invite';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminFamilyForm from './pages/AdminFamilyForm';
 import RequireAuth from './components/RequireAuth';
+import ExternalRedirect from './components/ExternalRedirect';
+
+const HOME_REDIRECT_URL = 'https://noivos.casar.com/vem-pro-nosso-sim-jana#/home';
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/admin" replace />} />
+      <Route path="/" element={<ExternalRedirect to={HOME_REDIRECT_URL} />} />
       <Route path="/convite/:token" element={<Invite />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route

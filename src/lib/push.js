@@ -11,7 +11,7 @@ export async function enablePushNotifications(inviteToken) {
   if (permission !== 'granted') return { ok: false, reason: 'denied' };
 
   const { getToken } = await import('firebase/messaging');
-  const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY;
+  const vapidKey = import.meta.env.FIREBASE_VAPID_KEY;
   const deviceToken = await getToken(messaging, { vapidKey });
   if (!deviceToken) return { ok: false, reason: 'no-token' };
 

@@ -5,7 +5,7 @@ PWA de RSVP por família (React + Vite + Firebase) com painel administrativo. Co
 
 **Arquitetura de deploy**: o frontend (React/Vite) é publicado na **Vercel**; Firestore, Authentication e
 as Cloud Functions continuam no **Firebase** (projeto `janaegu`). O app fala com as Functions por uma URL
-absoluta (`VITE_FUNCTIONS_BASE_URL`), não por rewrites de hosting — por isso não usamos mais o Firebase
+absoluta (`FUNCTIONS_BASE_URL`), não por rewrites de hosting — por isso não usamos mais o Firebase
 Hosting (removido do `firebase.json`).
 
 ## O que já está pronto
@@ -53,7 +53,7 @@ Hosting (removido do `firebase.json`).
    firebase deploy --only functions,firestore:rules
    ```
    Depois do primeiro deploy, confira a URL real das functions no Console (Functions) e ajuste
-   `VITE_FUNCTIONS_BASE_URL` se for diferente de `https://us-central1-janaegu.cloudfunctions.net`.
+   `FUNCTIONS_BASE_URL` se for diferente de `https://us-central1-janaegu.cloudfunctions.net`.
 5. **Deploy do frontend na Vercel**:
    - Suba este repositório pro GitHub/GitLab (ou rode `vercel` pela CLI direto da pasta do projeto) e
      importe o projeto em vercel.com. O `vercel.json` já define `buildCommand`/`outputDirectory` e o
@@ -61,16 +61,16 @@ Hosting (removido do `firebase.json`).
      recarregar a página).
    - **Environment Variables** (Project Settings > Environment Variables, na Vercel): como o `.env` é
      ignorado pelo git, você precisa recriar lá as mesmas chaves do `.env.example` —
-     `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`,
-     `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`,
-     `VITE_FIREBASE_VAPID_KEY` (se for usar push) e `VITE_FUNCTIONS_BASE_URL`.
+     `FIREBASE_API_KEY`, `FIREBASE_AUTH_DOMAIN`, `FIREBASE_PROJECT_ID`,
+     `FIREBASE_STORAGE_BUCKET`, `FIREBASE_MESSAGING_SENDER_ID`, `FIREBASE_APP_ID`,
+     `FIREBASE_VAPID_KEY` (se for usar push) e `FUNCTIONS_BASE_URL`.
    - Depois que a Vercel gerar o domínio (`algumacoisa.vercel.app` ou um domínio próprio), adicione-o em
      Firebase Console > Authentication > Settings > **Authorized domains** — evita bloqueio em qualquer
      fluxo de auth que dependa de domínio autorizado.
    - As Cloud Functions já aceitam chamadas de qualquer origem (CORS liberado em `functions/index.js`), então
      não precisa configurar nada extra do lado do Firebase pra isso funcionar.
 6. **Chave VAPID** (só se for usar push): Console > Cloud Messaging > Certificados push na Web > gerar par
-   de chaves, colar em `VITE_FIREBASE_VAPID_KEY` no `.env` (e na Vercel, passo 5).
+   de chaves, colar em `FIREBASE_VAPID_KEY` no `.env` (e na Vercel, passo 5).
 7. **Preencher `settings/event`** no Firestore (Console, depois que Firestore estiver com as regras
    publicadas — ou direto pelo painel admin, se você expuser um formulário para isso): `coupleNames`,
    `weddingDateIso`, `weddingDateLabel`, `venueName`, `venueAddress`, `giftListUrl`, etc. Os valores
