@@ -21,6 +21,8 @@
   inset: -10% 0 -10% 0;
   background: var(--ink-800);
   background-image: var(--grad-stage);
+  background-size: cover;
+  background-position: center;
 }
 
 .invite-hero-gradient {
@@ -105,7 +107,7 @@
   font-size: var(--scale-h3);
 }
 
-.invite-story, .invite-day, .invite-rsvp-block, .invite-links, .message-wall {
+.invite-day, .invite-rsvp-block, .invite-links, .message-wall {
   padding: var(--section) var(--gutter);
   max-width: 720px;
   margin: 0 auto;
@@ -125,12 +127,23 @@
   background: var(--card);
 }
 
-.invite-venue-photo {
+.invite-venue-photo, .venue-map {
   width: 100%;
   height: 220px;
   border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.invite-venue-photo {
   background: var(--ink-800);
   background-image: var(--grad-stage);
+}
+
+.venue-map {
+  z-index: 0;
+}
+.venue-map .leaflet-control-attribution {
+  font-size: 9px;
 }
 
 .invite-day-actions {
@@ -169,6 +182,21 @@
 .rsvp-shortcuts .btn, .rsvp-guest-row, .rsvp-sent .btn {
   border-color: rgba(255, 255, 255, .2);
   color: #fff;
+}
+
+/* --accent é igual a --ink-950 (fundo deste bloco) — sem inverter, o botão
+   "primary" vira invisível, só o texto aparece flutuando no preto. */
+.invite-rsvp-block .btn-primary {
+  background: #fff;
+  color: var(--ink-950);
+  box-shadow: var(--shadow-drop);
+}
+.invite-rsvp-block .btn-primary:hover:not(:disabled) {
+  background: var(--t4);
+}
+.invite-rsvp-block .btn-primary:disabled {
+  background: rgba(255, 255, 255, .6);
+  opacity: 1;
 }
 
 .rsvp-guest-list {

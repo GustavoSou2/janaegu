@@ -75,10 +75,15 @@ promocional de nenhum tipo.
 4. **Preencher `settings/event`** no Firestore (Console, depois que as regras estiverem publicadas): `coupleNames`,
    `weddingDateIso`, `weddingDateLabel`, `venueName`, `venueAddress`, `giftListUrl`, etc. Os valores default
    estão em `src/lib/settings.js`.
+   - **`venueLat` / `venueLng`** (números): sem isso o mapa do convite (Leaflet) não aparece — fica só a
+     foto placeholder. Eu não encontrei coordenadas confiáveis pro endereço do Espaço Roma Eventos (não
+     está no OpenStreetMap, e a web tem nomes parecidos em endereços diferentes), então não chutei. Pra
+     pegar a coordenada certa: abra o Google Maps, ache o local exato, clique com o botão direito bem em
+     cima do pino e copie as coordenadas (algo como `-22.123456, -47.123456`) — o primeiro número é
+     `venueLat`, o segundo é `venueLng`.
 5. **Trocar os placeholders**: `public/convite-compartilhar.jpg` (imagem de compartilhar/Instagram) e os
    ícones em `public/icons/` são retângulos sólidos gerados automaticamente — troque pelas fotos e ícones
-   reais antes do deploy. O texto da "nossa história" está fixo em `src/pages/Invite.jsx`
-   (`STORY_TITLE`/`STORY_TEXT`).
+   reais antes do deploy.
 6. **Rodar e testar localmente** (já dá pra fazer agora, mesmo sem Auth implantado):
    ```
    npm install

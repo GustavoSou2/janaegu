@@ -1,14 +1,15 @@
+import { parseWeddingDate } from './date';
+
 const EVENT_DURATION_HOURS = 5;
 
-function toGoogleDate(isoString) {
+function toGoogleDate(date) {
   // Google Calendar quer UTC no formato YYYYMMDDTHHmmssZ
-  const d = new Date(isoString);
-  return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 }
 
 export function buildGoogleCalendarLink({ coupleNames, weddingDateIso, venueAddress }) {
-  if (!weddingDateIso) return null;
-  const start = new Date(weddingDateIso);
+  const start = parseWeddingDate(weddingDateIso);
+  if (!start) return null;
   const end = new Date(start.getTime() + EVENT_DURATION_HOURS * 60 * 60 * 1000);
 
   const params = new URLSearchParams({

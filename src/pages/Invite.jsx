@@ -6,15 +6,14 @@ import Countdown from '../components/Countdown';
 import RsvpForm from '../components/RsvpForm';
 import MessageWall from '../components/MessageWall';
 import Reveal from '../components/Reveal';
+import VenueMap from '../components/VenueMap';
 import { getInviteByToken } from '../lib/families';
 import { getSettings } from '../lib/settings';
 import { buildGoogleCalendarLink } from '../lib/calendar';
 
-const STORY_TITLE = 'Nove anos depois daquele café que não acabava mais';
-const STORY_TEXT =
-  'A gente se conheceu numa conversa que não tinha hora pra terminar e, desde então, não parou mais. ' +
-  'Agora queremos vocês por perto no dia em que isso vira pra sempre.';
 const GIFT_LIST_URL = '';
+const HERO_IMAGE_URL =
+  'https://cdn-assets-legacy.casar.com/thumb/autoxautox1xx72,257,1064,1282/dados/sitenoivos/wed1562973/custom/tema56_img_color_master_6a7914f40d2891786320116.jpg';
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -95,7 +94,11 @@ export default function Invite() {
       {showOpening && <OpeningSequence onComplete={() => setShowOpening(false)} />}
 
       <section className="invite-hero">
-        <div className="invite-hero-photo bw-photo" ref={heroRef} />
+        <div
+          className="invite-hero-photo bw-photo"
+          ref={heroRef}
+          style={{ backgroundImage: `url(${HERO_IMAGE_URL})` }}
+        />
         <div className="invite-hero-gradient" />
         <div className="invite-hero-content">
           <div className="invite-hero-rule" />
@@ -114,12 +117,6 @@ export default function Invite() {
       </section>
 
       <Countdown weddingDateIso={settings.weddingDateIso} />
-
-      <Reveal as="section" className="invite-story">
-        <h6 className="label" style={{ color: 'var(--t2)' }}>Nossa história</h6>
-        <h3 style={{ margin: '10px 0' }}>{STORY_TITLE}</h3>
-        <p style={{ color: 'var(--t2)' }}>{STORY_TEXT}</p>
-      </Reveal>
 
       <Reveal as="section" className="invite-day">
         <div className="invite-day-grid">
@@ -143,7 +140,11 @@ export default function Invite() {
           </div>
         </div>
 
-        <div className="invite-venue-photo bw-photo" />
+        {settings.venueLat != null && settings.venueLng != null ? (
+          <VenueMap lat={settings.venueLat} lng={settings.venueLng} label={settings.venueName} />
+        ) : (
+          <div className="invite-venue-photo bw-photo" />
+        )}
         <p style={{ marginTop: 14, color: 'var(--t2)' }}>{settings.venueAddress}</p>
         <div className="invite-day-actions">
           {mapsUrl && (
@@ -176,16 +177,13 @@ export default function Invite() {
         <MessageWall />
       </Reveal>
 
-      <Reveal as="section" className="invite-links">
-        <a className="btn btn-ghost" href={settings.shareImageUrl} download>
-          Baixar imagem para o Instagram ↓
-        </a>
-        {(settings.giftListUrl || GIFT_LIST_URL) && (
+      {(settings.giftListUrl || GIFT_LIST_URL) && (
+        <Reveal as="section" className="invite-links">
           <a className="btn btn-ghost" href={settings.giftListUrl || GIFT_LIST_URL} target="_blank" rel="noreferrer">
             Ver lista de presentes ↗
           </a>
-        )}
-      </Reveal>
+        </Reveal>
+      )}
 
       <section className="invite-pwa-notice">
         <h6 className="label">Adicionar à tela de início</h6>

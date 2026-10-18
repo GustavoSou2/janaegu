@@ -9,6 +9,12 @@ export const DEFAULT_SETTINGS = {
   weddingDateLabel: '18 de dezembro de 2026',
   venueName: 'Espaço Roma Eventos',
   venueAddress: 'R. Adolfina Dagnone, 80, Chácara Recanto da Colina Verde, Campinas, SP, 13057-552',
+  // Sem coordenada "chutada": não encontrei esse endereço nem no OpenStreetMap, nem
+  // com um nome confiável num mapa de verdade. Preencha em settings/event no Firestore
+  // (pegue no Google Maps: clique com o botão direito bem em cima do local > copie as
+  // coordenadas) pra o mapa do convite aparecer.
+  venueLat: null,
+  venueLng: null,
   rsvpDeadlineLabel: '20 de novembro',
   giftListUrl: '',
   shareImageUrl: '/convite-compartilhar.jpg',

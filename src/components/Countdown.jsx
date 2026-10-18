@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { parseWeddingDate } from '../lib/date';
 
 function splitParts(diffMs) {
   const totalSeconds = Math.max(0, Math.floor(diffMs / 1000));
@@ -20,7 +21,9 @@ export default function Countdown({ weddingDateIso }) {
     return () => clearInterval(id);
   }, []);
 
-  if (!weddingDateIso) {
+  const target = parseWeddingDate(weddingDateIso);
+
+  if (!target) {
     return (
       <div className="countdown countdown-placeholder">
         <p className="label" style={{ color: 'var(--t2)' }}>Em breve</p>
@@ -28,8 +31,7 @@ export default function Countdown({ weddingDateIso }) {
     );
   }
 
-  const target = new Date(weddingDateIso).getTime();
-  const diff = target - now;
+  const diff = target.getTime() - now;
 
   if (diff <= 0) {
     return (
