@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-7a428af7-4a06-4fa7-8127-cd0d32f33282/styles.css">
+<script src="_ds/modernist-7a428af7-4a06-4fa7-8127-cd0d32f33282/_ds_bundle.js"></script>
+<link rel="stylesheet" href="tokens-mono.css">
+<script src="./image-slot.js"></script>
+<style>
+  body { background: var(--color-bg); }
+  @keyframes pulseDot { 0%,100%{opacity:1} 50%{opacity:.25} }
+</style>
+</helmet>
+
+<div style="max-width:1400px;margin:0 auto;padding:40px 28px 80px;font-family:var(--font-body);color:var(--color-text)">
+
+  <header style="display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;padding-bottom:16px">
+    <div style="max-width:620px">
+      <div style="font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:10px">Confirmação de presença · 18.12.2026</div>
+      <h1 style="font-size:44px;line-height:1.05;letter-spacing:-.02em;margin:0 0 10px">Telas do app de casamento</h1>
+      <p style="margin:0;color:var(--color-neutral-700);font-size:15px;max-width:52ch;text-wrap:pretty">Redesenho das telas descritas nas specs: convite público, RSVP por família, mural de recados, login, cadastro de famílias e lista reserva. O fluxo do convidado à esquerda é navegável.</p>
+    </div>
+    <div style="display:flex;gap:28px;font-size:12px;color:var(--color-neutral-700)">
+      <div><div style="font-weight:600;color:var(--color-text);font-size:22px;line-height:1">100</div>limite de convidados</div>
+      <div><div style="font-weight:600;color:var(--color-text);font-size:22px;line-height:1">{{ daysLeft }}</div>dias para o dia</div>
+    </div>
+  </header>
+
+  <hr class="hr" style="margin:0 0 36px">
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:40px;align-items:start">
+
+    <section style="position:sticky;top:24px">
+      <h6 style="margin:0 0 4px">Fluxo do convidado</h6>
+      <p style="font-size:13px;color:var(--color-neutral-700);margin:0 0 16px">/convite/:token — mobile-first, funciona sem instalar.</p>
+
+      <div style="border:2px solid var(--color-text);background:#fff;width:100%;max-width:400px">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--color-divider);font-size:11px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">
+          <span>9:41</span>
+          <span style="font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:10px">casamento.app/convite/a7f3kd</span>
+        </div>
+
+        <div style="height:720px;overflow-y:auto;overflow-x:hidden">
+
+          <div style="position:relative;height:420px;background:var(--color-text)">
+            <image-slot id="hero-casal" shape="rect" placeholder="Foto do casal (vertical)" style="width:100%;height:100%" class="grayscale"></image-slot>
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(32,30,29,.55) 0%, rgba(32,30,29,.1) 40%, rgba(32,30,29,.85) 100%);pointer-events:none"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:24px 20px;pointer-events:none">
+              <div style="width:40px;height:2px;background:var(--color-accent);margin-bottom:14px"></div>
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:38px;line-height:1.02;letter-spacing:-.02em;color:#fff">{{ brideName }}<br><span style="color:var(--color-accent-400);font-size:26px">&amp;</span><br>{{ groomName }}</div>
+              <div style="margin-top:14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;font-weight:600">18 dez 2026 · Fazenda Santa Clara</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid var(--color-divider);background:var(--color-bg)">
+            <div style="padding:14px 6px;text-align:center;border-right:1px solid var(--color-divider)">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:28px;line-height:1;font-variant-numeric:tabular-nums">{{ cdDays }}</div>
+              <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:4px">dias</div>
+            </div>
+            <div style="padding:14px 6px;text-align:center;border-right:1px solid var(--color-divider)">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:28px;line-height:1;font-variant-numeric:tabular-nums">{{ cdHours }}</div>
+              <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:4px">horas</div>
+            </div>
+            <div style="padding:14px 6px;text-align:center;border-right:1px solid var(--color-divider)">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:28px;line-height:1;font-variant-numeric:tabular-nums">{{ cdMin }}</div>
+              <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:4px">min</div>
+            </div>
+            <div style="padding:14px 6px;text-align:center">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:28px;line-height:1;font-variant-numeric:tabular-nums;color:var(--color-accent-700)">{{ cdSec }}</div>
+              <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:4px">seg</div>
+            </div>
+          </div>
+
+          <section style="padding:28px 20px;border-bottom:2px solid var(--color-divider);background:#fff">
+            <h6 style="margin:0 0 10px;color:var(--color-accent-700)">Nossa história</h6>
+            <h3 style="font-size:22px;margin:0 0 10px;line-height:1.15">Nove anos depois daquele café em Pinheiros</h3>
+            <p style="font-size:14px;line-height:1.6;color:var(--color-neutral-800);margin:0 0 16px;text-wrap:pretty">A gente se conheceu numa fila que não andava e desde então não parou mais. Agora queremos vocês por perto no dia em que isso vira pra sempre.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <image-slot id="hist-1" shape="rect" placeholder="Foto 1" style="width:100%;height:120px" class="grayscale"></image-slot>
+              <image-slot id="hist-2" shape="rect" placeholder="Foto 2" style="width:100%;height:120px" class="grayscale"></image-slot>
+            </div>
+          </section>
+
+          <section style="padding:28px 20px;border-bottom:2px solid var(--color-divider);background:var(--color-bg)">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px">
+              <h6 style="margin:0;color:var(--color-accent-700)">Sua presença</h6>
+              <span style="font-size:11px;color:var(--color-neutral-700);font-weight:600">{{ countLabel }}</span>
+            </div>
+            <h3 style="font-size:24px;margin:0 0 16px">{{ familyName }}</h3>
+
+            <sc-if value="{{ showWaitlistNotice }}" hint-placeholder-val="{{ false }}">
+              <div style="border-left:2px solid var(--color-accent);background:var(--color-accent-100);padding:10px 12px;font-size:12px;color:var(--color-accent-800);margin-bottom:16px">Vocês estão na lista reserva. Confirmem mesmo assim — avisamos assim que uma vaga abrir.</div>
+            </sc-if>
+
+            <sc-if value="{{ isIdle }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <p style="font-size:14px;color:var(--color-neutral-800);margin:0 0 16px">Marque quem vai poder vir com a gente.</p>
+                <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid var(--color-divider);margin-bottom:20px">
+                  <sc-for list="{{ guests }}" as="g" hint-placeholder-count="4">
+                    <button onClick="{{ g.toggle }}" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--color-divider);padding:14px 2px;cursor:pointer;font-family:var(--font-body)" style-hover="background:rgba(32,30,29,.04)">
+                      <sc-if value="{{ g.attending }}" hint-placeholder-val="{{ true }}">
+                        <span style="width:22px;height:22px;flex:0 0 22px;background:var(--color-accent);display:flex;align-items:center;justify-content:center">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="square"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </span>
+                      </sc-if>
+                      <sc-if value="{{ g.absent }}" hint-placeholder-val="{{ false }}">
+                        <span style="width:22px;height:22px;flex:0 0 22px;border:1px solid var(--color-neutral-500);background:transparent"></span>
+                      </sc-if>
+                      <span style="font-size:15px;font-weight:600;color:var(--color-text)">{{ g.name }}</span>
+                      <sc-if value="{{ g.isChild }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-700);border:1px solid var(--color-divider);padding:1px 6px">criança</span>
+                      </sc-if>
+                    </button>
+                  </sc-for>
+                </div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:6px">Recado para os noivos <span style="color:var(--color-neutral-600);font-weight:400">(opcional)</span></label>
+                <textarea value="{{ message }}" onChange="{{ onMessage }}" rows="3" placeholder="Escreva algo pra gente guardar." style="width:100%;border:1px solid var(--color-divider);background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;resize:vertical;margin-bottom:16px"></textarea>
+                <button onClick="{{ confirm }}" style="width:100%;background:var(--color-accent);color:#fff;border:0;padding:16px;font-family:var(--font-heading);font-weight:600;font-size:16px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center" style-hover="background:var(--color-accent-600)">Vamos sim! <span>→</span></button>
+                <button onClick="{{ openDecline }}" style="width:100%;background:transparent;border:1px solid var(--color-divider);padding:14px;margin-top:8px;font-family:var(--font-heading);font-weight:600;font-size:14px;text-align:left;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">Não poderemos ir</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isDecline }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <p style="font-size:14px;color:var(--color-neutral-800);margin:0 0 14px">Que pena. Conta pra gente o motivo — fica só entre nós.</p>
+                <textarea value="{{ reason }}" onChange="{{ onReason }}" rows="3" placeholder="Motivo da ausência" style="width:100%;border:1px solid var(--color-divider);background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;resize:vertical;margin-bottom:12px"></textarea>
+                <sc-if value="{{ declineMessage }}" hint-placeholder-val="{{ true }}">
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:6px">Recado para os noivos <span style="color:var(--color-neutral-600);font-weight:400">(opcional)</span></label>
+                    <textarea value="{{ message }}" onChange="{{ onMessage }}" rows="2" placeholder="Mesmo sem poder ir, deixe um recado." style="width:100%;border:1px solid var(--color-divider);background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;resize:vertical;margin-bottom:16px"></textarea>
+                  </div>
+                </sc-if>
+                <button onClick="{{ sendDecline }}" style="width:100%;background:var(--color-accent);color:#fff;border:0;padding:16px;font-family:var(--font-heading);font-weight:600;font-size:16px;text-align:left;cursor:pointer" style-hover="background:var(--color-accent-600)">Enviar resposta</button>
+                <button onClick="{{ back }}" style="width:100%;background:transparent;border:0;padding:12px 0;margin-top:4px;font-family:var(--font-heading);font-weight:600;font-size:13px;text-align:left;cursor:pointer;color:var(--color-accent-700)">← Voltar</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isSent }}" hint-placeholder-val="{{ false }}">
+              <div style="border:2px solid var(--color-text);padding:20px;background:#fff">
+                <div style="width:32px;height:32px;background:var(--color-accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0 0 6px;font-size:20px">Recebemos sua resposta!</h4>
+                <p style="font-size:14px;color:var(--color-neutral-800);margin:0 0 4px">{{ sentSummary }}</p>
+                <p style="font-size:12px;color:var(--color-neutral-700);margin:0 0 16px">Seu recado entra no mural depois que a gente ler. Pode mudar a resposta quando quiser.</p>
+                <button onClick="{{ reopen }}" style="background:transparent;border:1px solid var(--color-divider);padding:10px 14px;font-family:var(--font-heading);font-weight:600;font-size:13px;cursor:pointer" style-hover="background:rgba(32,30,29,.06)">Alterar resposta</button>
+              </div>
+            </sc-if>
+          </section>
+
+          <section style="padding:28px 20px;border-bottom:2px solid var(--color-divider);background:#fff">
+            <h6 style="margin:0 0 14px;color:var(--color-accent-700)">Mural de recados</h6>
+            <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid var(--color-divider)">
+              <sc-for list="{{ wallMessages }}" as="m" hint-placeholder-count="3">
+                <div style="padding:14px 0;border-bottom:1px solid var(--color-divider)">
+                  <p style="font-size:14px;line-height:1.55;margin:0 0 6px;color:var(--color-neutral-800);text-wrap:pretty">{{ m.text }}</p>
+                  <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-neutral-600)">{{ m.family }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+
+          <section style="padding:28px 20px;border-bottom:2px solid var(--color-divider);background:var(--color-bg)">
+            <div style="display:grid;grid-template-columns:1fr;gap:10px">
+              <button style="background:transparent;border:1px solid var(--color-divider);padding:14px;font-family:var(--font-heading);font-weight:600;font-size:14px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">Baixar imagem para o Instagram <span>↓</span></button>
+              <button style="background:transparent;border:1px solid var(--color-divider);padding:14px;font-family:var(--font-heading);font-weight:600;font-size:14px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">Ver lista de presentes <span>↗</span></button>
+            </div>
+          </section>
+
+          <section style="padding:20px;background:var(--color-accent);color:#fff">
+            <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:6px">Adicionar à tela de início</div>
+            <p style="font-size:13px;margin:0;line-height:1.5;color:#fff">Opcional. Serve pra voltar rápido no dia e receber avisos — nada aqui exige instalar.</p>
+          </section>
+
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <button onClick="{{ back }}" style="background:transparent;border:1px solid var(--color-divider);padding:8px 12px;font-family:var(--font-heading);font-weight:600;font-size:12px;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">Estado: formulário</button>
+        <button onClick="{{ openDecline }}" style="background:transparent;border:1px solid var(--color-divider);padding:8px 12px;font-family:var(--font-heading);font-weight:600;font-size:12px;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">Recusa</button>
+        <button onClick="{{ confirm }}" style="background:transparent;border:1px solid var(--color-divider);padding:8px 12px;font-family:var(--font-heading);font-weight:600;font-size:12px;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">Enviado</button>
+      </div>
+    </section>
+
+    <section>
+      <h6 style="margin:0 0 4px">Painel administrativo</h6>
+      <p style="font-size:13px;color:var(--color-neutral-700);margin:0 0 16px">/admin — protegido por login, tempo real via onSnapshot.</p>
+
+      <div style="display:flex;gap:0;border:1px solid var(--color-divider);margin-bottom:20px;width:max-content">
+        <sc-for list="{{ adminTabs }}" as="t" hint-placeholder-count="3">
+          <button onClick="{{ t.go }}" style="background:transparent;border:0;border-right:1px solid var(--color-divider);padding:10px 16px;font-family:var(--font-heading);font-weight:600;font-size:13px;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">{{ t.label }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+        <div style="border:2px solid var(--color-text);background:#fff;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));min-height:420px">
+          <div style="padding:40px;display:flex;flex-direction:column;justify-content:center">
+            <div style="width:40px;height:2px;background:var(--color-accent);margin-bottom:20px"></div>
+            <h2 style="font-size:28px;margin:0 0 6px">Painel dos noivos</h2>
+            <p style="font-size:14px;color:var(--color-neutral-700);margin:0 0 24px">Só vocês dois entram aqui.</p>
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">E-mail</label>
+            <input type="email" value="gustavo@exemplo.com" readOnly="{{ true }}" style="width:100%;border:1px solid var(--color-divider);background:var(--color-bg);padding:11px;font-family:var(--font-body);font-size:14px;margin-bottom:14px">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Senha</label>
+            <input type="password" value="senhasecreta" readOnly="{{ true }}" style="width:100%;border:1px solid var(--color-divider);background:var(--color-bg);padding:11px;font-family:var(--font-body);font-size:14px;margin-bottom:20px">
+            <button style="background:var(--color-accent);color:#fff;border:0;padding:14px;font-family:var(--font-heading);font-weight:600;font-size:15px;text-align:left;cursor:pointer" style-hover="background:var(--color-accent-600)">Entrar</button>
+            <p style="font-size:12px;color:var(--color-neutral-700);margin:16px 0 0">Sessão expirada leva de volta pra cá antes de qualquer dado aparecer.</p>
+          </div>
+          <div style="background:var(--color-text);position:relative">
+            <image-slot id="login-foto" shape="rect" placeholder="Foto vertical" style="width:100%;height:100%" class="grayscale"></image-slot>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCadastro }}" hint-placeholder-val="{{ true }}">
+        <div style="border:2px solid var(--color-text);background:#fff">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:2px solid var(--color-divider)">
+            <div>
+              <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:600">/admin/familia/nova</div>
+              <h3 style="margin:2px 0 0;font-size:22px">Nova família</h3>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button style="background:transparent;border:1px solid var(--color-divider);padding:10px 14px;font-family:var(--font-heading);font-weight:600;font-size:13px;cursor:pointer;color:var(--color-text);white-space:nowrap" style-hover="background:rgba(32,30,29,.06)">Cancelar</button>
+              <button style="background:var(--color-accent);color:#fff;border:0;padding:10px 16px;font-family:var(--font-heading);font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap" style-hover="background:var(--color-accent-600)">Salvar família</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;padding:24px;border-bottom:1px solid var(--color-divider)">
+            <div>
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Nome da família <span style="color:var(--color-accent-700)">*</span></label>
+              <input value="Família Ribeiro" readOnly="{{ true }}" style="width:100%;border:1px solid var(--color-divider);background:var(--color-bg);padding:11px;font-family:var(--font-body);font-size:14px">
+            </div>
+            <div>
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Telefone (DDI + DDD)</label>
+              <input value="+55 11 98877-1200" readOnly="{{ true }}" style="width:100%;border:1px solid var(--color-divider);background:var(--color-bg);padding:11px;font-family:var(--font-body);font-size:14px">
+              <div style="font-size:11px;color:var(--color-neutral-700);margin-top:5px">Validado no formato wa.me antes de salvar.</div>
+            </div>
+          </div>
+
+          <div style="padding:24px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+              <h6 style="margin:0">Convidados da família</h6>
+              <span style="font-size:12px;color:var(--color-neutral-700)">{{ adminGuestCount }} pessoas</span>
+            </div>
+            <div style="border-top:1px solid var(--color-divider)">
+              <sc-for list="{{ adminGuests }}" as="g" hint-placeholder-count="4">
+                <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--color-divider)">
+                  <span style="font-size:12px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums;flex:0 0 22px">{{ g.pos }}</span>
+                  <input value="{{ g.name }}" onChange="{{ g.rename }}" style="flex:1 1 160px;min-width:140px;border:1px solid var(--color-divider);background:#fff;padding:9px;font-family:var(--font-body);font-size:14px">
+                  <button onClick="{{ g.toggleChild }}" style="flex:0 0 auto;background:transparent;border:1px solid var(--color-divider);padding:8px 10px;font-family:var(--font-heading);font-weight:600;font-size:12px;cursor:pointer;color:var(--color-text);white-space:nowrap" style-hover="background:rgba(32,30,29,.06)">{{ g.childLabel }}</button>
+                  <sc-if value="{{ g.isChild }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ g.toggleHalf }}" style="flex:0 0 auto;background:transparent;border:1px solid var(--color-divider);padding:8px 10px;font-family:var(--font-heading);font-weight:600;font-size:12px;cursor:pointer;color:var(--color-text);white-space:nowrap" style-hover="background:rgba(10,10,10,.05)">{{ g.halfLabel }}</button>
+                  </sc-if>
+                  <span style="flex:0 0 auto;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700);white-space:nowrap">{{ g.rsvpLabel }}</span>
+                  <button onClick="{{ g.remove }}" style="flex:0 0 auto;margin-left:auto;background:transparent;border:0;cursor:pointer;color:var(--color-accent-700);font-size:18px;line-height:1;padding:4px" style-hover="background:var(--color-accent-100)">×</button>
+                </div>
+              </sc-for>
+            </div>
+            <button onClick="{{ addGuest }}" style="background:transparent;border:1px dashed var(--color-neutral-500);width:100%;padding:12px;margin-top:12px;font-family:var(--font-heading);font-weight:600;font-size:13px;text-align:left;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(32,30,29,.04)">+ Adicionar convidado</button>
+
+            <div style="display:flex;gap:12px;align-items:flex-start;border-left:2px solid var(--color-accent);background:var(--color-accent-100);padding:12px 14px;margin-top:20px">
+              <div style="font-size:13px;color:var(--color-accent-800);line-height:1.5">
+                <strong style="font-weight:600">{{ waitlistHeadline }}</strong><br>{{ waitlistDetail }}
+              </div>
+            </div>
+
+            <p style="font-size:12px;color:var(--color-neutral-700);margin:16px 0 0;max-width:70ch">Ao editar, convidados são casados por nome exato: nome igual preserva a resposta, nome novo entra sem resposta, nome removido apaga o registro. Evite dois convidados com o mesmo nome na mesma família.</p>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isReserva }}" hint-placeholder-val="{{ false }}">
+        <div style="border:2px solid var(--color-text);background:#fff">
+          <div style="padding:24px;border-bottom:2px solid var(--color-divider)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+              <div>
+                <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:600">Lista principal</div>
+                <div style="font-family:var(--font-heading);font-weight:600;font-size:40px;line-height:1;font-variant-numeric:tabular-nums">98<span style="color:var(--color-neutral-500);font-size:24px"> / 100</span></div>
+              </div>
+              <div style="display:flex;gap:28px;font-size:12px;color:var(--color-neutral-700)">
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:22px;color:var(--color-text);line-height:1">61</div>confirmados</div>
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:22px;color:var(--color-text);line-height:1">9</div>crianças</div>
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:22px;color:var(--color-accent-700);line-height:1">12</div>na reserva</div>
+              </div>
+            </div>
+            <div style="height:10px;background:var(--color-neutral-300);display:flex">
+              <div style="width:61%;background:var(--color-accent)"></div>
+              <div style="width:37%;background:var(--color-neutral-500)"></div>
+            </div>
+            <div style="display:flex;gap:18px;margin-top:8px;font-size:11px;color:var(--color-neutral-700)">
+              <span><span style="display:inline-block;width:8px;height:8px;background:var(--color-accent);margin-right:5px"></span>confirmados</span>
+              <span><span style="display:inline-block;width:8px;height:8px;background:var(--color-neutral-500);margin-right:5px"></span>convidados sem resposta</span>
+            </div>
+          </div>
+
+          <div style="overflow-x:auto">
+          <table style="width:100%;min-width:620px;border-collapse:collapse;font-size:14px">
+            <thead>
+              <tr style="border-bottom:2px solid var(--color-divider)">
+                <th style="text-align:left;padding:12px 24px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-700)">Família</th>
+                <th style="text-align:left;padding:12px 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-700)">Status</th>
+                <th style="text-align:left;padding:12px 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-700)">Confirmados</th>
+                <th style="text-align:left;padding:12px 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-700)">Lista</th>
+                <th style="text-align:right;padding:12px 24px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-700)">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ families }}" as="f" hint-placeholder-count="6">
+                <tr style="border-bottom:1px solid var(--color-divider)">
+                  <td style="padding:14px 24px;font-weight:600">{{ f.name }}</td>
+                  <td style="padding:14px 8px"><span style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:3px 8px;border:1px solid var(--color-divider)">{{ f.status }}</span></td>
+                  <td style="padding:14px 8px;font-variant-numeric:tabular-nums;color:var(--color-neutral-800)">{{ f.count }}</td>
+                  <td style="padding:14px 8px;color:var(--color-neutral-800)">{{ f.list }}</td>
+                  <td style="padding:14px 24px;text-align:right;white-space:nowrap">
+                    <button onClick="{{ f.move }}" style="background:transparent;border:1px solid var(--color-divider);padding:6px 10px;font-family:var(--font-heading);font-weight:600;font-size:12px;cursor:pointer;color:var(--color-text);margin-right:6px" style-hover="background:rgba(32,30,29,.06)">{{ f.moveLabel }}</button>
+                    <button style="background:transparent;border:0;padding:6px 8px;font-family:var(--font-heading);font-weight:600;font-size:12px;cursor:pointer;color:var(--color-accent-700)" style-hover="background:var(--color-accent-100)">WhatsApp</button>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+          </div>
+
+          <div style="padding:16px 24px;border-top:2px solid var(--color-divider);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <p style="font-size:12px;color:var(--color-neutral-700);margin:0;max-width:60ch">A reserva não é promovida sozinha quando uma vaga abre — mover é sempre manual.</p>
+            <button style="background:transparent;border:1px solid var(--color-divider);padding:10px 14px;font-family:var(--font-heading);font-weight:600;font-size:13px;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(32,30,29,.06)">Exportar CSV</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <hr class="hr" style="margin:36px 0 20px">
+
+      <div>
+        <h6 style="margin:0 0 12px">Decisões que estas telas assumem</h6>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
+          <sc-for list="{{ decisions }}" as="d" hint-placeholder-count="4">
+            <div style="padding:16px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider)">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);font-weight:600;margin-bottom:6px">{{ d.spec }}</div>
+              <p style="font-size:13px;line-height:1.5;margin:0;color:var(--color-neutral-800);text-wrap:pretty">{{ d.text }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;coupleNames&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Janaina &amp; Gustavo&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;weddingDateIso&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2026-12-18T16:00:00-03:00&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;guestLimit&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:100,&quot;min&quot;:20,&quot;max&quot;:300,&quot;tsType&quot;:&quot;number&quot;},&quot;waitlistNoticeToGuest&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Perguntas abertas&quot;},&quot;declineAllowsMessage&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Perguntas abertas&quot;}}">
+class Component extends DCLogic {
+  state = {
+    rsvp: 'idle',
+    message: '',
+    reason: '',
+    admin: 'cadastro',
+    now: Date.now(),
+    guests: [
+      { id: 'g1', name: 'Antônio Ribeiro', isChild: false, attending: true },
+      { id: 'g2', name: 'Cláudia Ribeiro', isChild: false, attending: true },
+      { id: 'g3', name: 'Beatriz Ribeiro', isChild: false, attending: true },
+      { id: 'g4', name: 'Theo Ribeiro', isChild: true, attending: true }
+    ],
+    adminGuests: [
+      { id: 'a1', name: 'Antônio Ribeiro', isChild: false, rsvp: 'confirmado' },
+      { id: 'a2', name: 'Cláudia Ribeiro', isChild: false, rsvp: 'confirmado' },
+      { id: 'a3', name: 'Beatriz Ribeiro', isChild: false, rsvp: 'sem resposta' },
+      { id: 'a4', name: 'Theo Ribeiro', isChild: true, isHalf: true, rsvp: 'sem resposta' }
+    ],
+    families: [
+      { id: 'f1', name: 'Família Souza', status: 'confirmado', count: '5 de 5', waitlist: false },
+      { id: 'f2', name: 'Família Ribeiro', status: 'parcial', count: '3 de 4', waitlist: false },
+      { id: 'f3', name: 'Família Nakamura', status: 'pendente', count: '— de 2', waitlist: false },
+      { id: 'f4', name: 'Família Correia', status: 'recusado', count: '0 de 3', waitlist: false },
+      { id: 'f5', name: 'Família Beltrão', status: 'pendente', count: '— de 5', waitlist: true },
+      { id: 'f6', name: 'Família Andrade', status: 'confirmado', count: '2 de 2', waitlist: true }
+    ]
+  };
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState({ now: Date.now() }), 1000);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  pad(n) { return String(n).padStart(2, '0'); }
+
+  renderVals() {
+    const s = this.state;
+    const target = new Date(this.props.weddingDateIso || '2026-12-18T16:00:00-03:00').getTime();
+    const diff = Math.max(0, target - s.now);
+    const sec = Math.floor(diff / 1000);
+    const limit = this.props.guestLimit ?? 100;
+    const names = (this.props.coupleNames || 'Janaina & Gustavo').split('&');
+    const going = s.guests.filter(g => g.attending).length;
+    const total = s.guests.length;
+    const mainCount = 98;
+    const weight = s.adminGuests.reduce((a, g) => a + (g.isChild && g.isHalf ? 0.5 : 1), 0);
+    const fmt = n => String(n).replace('.', ',');
+    const newTotal = mainCount + weight;
+    const over = newTotal > limit;
+
+    return {
+      brideName: (names[0] || '').trim(),
+      groomName: (names[1] || '').trim(),
+      daysLeft: Math.floor(sec / 86400),
+      cdDays: Math.floor(sec / 86400),
+      cdHours: this.pad(Math.floor(sec / 3600) % 24),
+      cdMin: this.pad(Math.floor(sec / 60) % 60),
+      cdSec: this.pad(sec % 60),
+
+      familyName: 'Família Ribeiro',
+      countLabel: going + ' de ' + total + ' confirmados',
+      showWaitlistNotice: !!this.props.waitlistNoticeToGuest,
+      isIdle: s.rsvp === 'idle',
+      isDecline: s.rsvp === 'decline',
+      isSent: s.rsvp === 'sent',
+      declineMessage: this.props.declineAllowsMessage ?? true,
+      message: s.message,
+      reason: s.reason,
+      sentSummary: s.rsvp === 'sent' && s.lastStatus === 'recusado'
+        ? 'Vocês não poderão vir — anotado, e vamos sentir falta.'
+        : going + ' de ' + total + ' pessoas confirmadas na ' + 'Família Ribeiro.',
+      guests: s.guests.map(g => ({
+        name: g.name, isChild: g.isChild,
+        attending: !!g.attending, absent: !g.attending,
+        toggle: () => this.setState(st => ({
+          guests: st.guests.map(x => x.id === g.id ? { ...x, attending: !x.attending } : x)
+        }))
+      })),
+      onMessage: e => this.setState({ message: e.target.value }),
+      onReason: e => this.setState({ reason: e.target.value }),
+      confirm: () => this.setState({ rsvp: 'sent', lastStatus: 'confirmado' }),
+      openDecline: () => this.setState({ rsvp: 'decline' }),
+      sendDecline: () => this.setState({ rsvp: 'sent', lastStatus: 'recusado' }),
+      reopen: () => this.setState({ rsvp: 'idle' }),
+      back: () => this.setState({ rsvp: 'idle' }),
+
+      wallMessages: [
+        { text: 'Que alegria enorme. Já estamos contando os dias para dançar com vocês dois.', family: 'Família Souza' },
+        { text: 'Nove anos acompanhando essa história de perto. Vamos todos, até a vovó.', family: 'Família Andrade' },
+        { text: 'Não vamos poder ir, mas o coração estará aí. Beijo grande nos dois.', family: 'Família Correia' }
+      ],
+
+      adminTabs: [
+        { label: 'Login', go: () => this.setState({ admin: 'login' }) },
+        { label: 'Cadastro de família', go: () => this.setState({ admin: 'cadastro' }) },
+        { label: 'Lista reserva', go: () => this.setState({ admin: 'reserva' }) }
+      ],
+      isLogin: s.admin === 'login',
+      isCadastro: s.admin === 'cadastro',
+      isReserva: s.admin === 'reserva',
+
+      adminGuestCount: s.adminGuests.length,
+      adminGuests: s.adminGuests.map((g, i) => ({
+        pos: this.pad(i + 1),
+        name: g.name,
+        childLabel: g.isChild ? '✓ criança' : 'criança',
+        isChild: !!g.isChild,
+        halfLabel: g.isHalf ? '✓ meia (0,5)' : 'conta como meia',
+        toggleHalf: () => this.setState(st => ({
+          adminGuests: st.adminGuests.map(x => x.id === g.id ? { ...x, isHalf: !x.isHalf } : x)
+        })),
+        rsvpLabel: g.rsvp,
+        rename: e => {
+          const v = e.target.value;
+          this.setState(st => ({ adminGuests: st.adminGuests.map(x => x.id === g.id ? { ...x, name: v } : x) }));
+        },
+        toggleChild: () => this.setState(st => ({
+          adminGuests: st.adminGuests.map(x => x.id === g.id ? { ...x, isChild: !x.isChild } : x)
+        })),
+        remove: () => this.setState(st => ({ adminGuests: st.adminGuests.filter(x => x.id !== g.id) }))
+      })),
+      addGuest: () => this.setState(st => ({
+        adminGuests: [...st.adminGuests, { id: 'n' + Date.now(), name: '', isChild: false, rsvp: 'sem resposta' }]
+      })),
+      waitlistHeadline: over
+        ? 'Esta família entra na lista reserva'
+        : 'Cabe na lista principal',
+      waitlistDetail: mainCount + ' de peso já na lista principal + ' + fmt(weight) +
+        ' desta família (criança marcada como meia conta 0,5) = ' + fmt(newTotal) + (over
+          ? ', acima do limite de ' + limit + '. Ela recebe o link normalmente e pode ser movida depois.'
+          : ', dentro do limite de ' + limit + '.'),
+
+      families: s.families.map(f => ({
+        name: f.name, status: f.status, count: f.count,
+        list: f.waitlist ? 'reserva' : 'principal',
+        moveLabel: f.waitlist ? 'mover p/ principal' : 'mover p/ reserva',
+        move: () => this.setState(st => ({
+          families: st.families.map(x => x.id === f.id ? { ...x, waitlist: !x.waitlist } : x)
+        }))
+      })),
+
+      decisions: [
+        { spec: 'Lista reserva', text: 'O convidado da reserva vê um aviso curto no convite — controlável pelo tweak "aviso de reserva".' },
+        { spec: 'Mural de recados', text: 'A tela de recusa ganhou campo de recado separado do motivo. Pode ser desligado no tweak.' },
+        { spec: 'Convite público', text: 'História e lista de presentes seguem fixas no código; a data vem de settings/event.' },
+        { spec: 'Cadastro', text: 'O telefone é validado em DDI+DDD antes de salvar, pra não gerar link wa.me quebrado.' },
+        { spec: 'Lista reserva v2', text: 'Criança pode ser marcada como meia no cadastro: peso 0,5 no limite de 100, decisão manual do admin.' },
+        { spec: 'Tokens', text: 'Paleta monocromática Alicercei aplicada por cima do Modernist — acento neutralizado em preto.' }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

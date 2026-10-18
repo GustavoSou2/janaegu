@@ -1,0 +1,117 @@
+/* Gerado a partir de interface/tokens-mono.json — paleta "Alicercei", monocromática. */
+:root {
+  /* color / surface */
+  --bg-app: #F4F4F5;
+  --bg-canvas: #FFFFFF;
+  --card: #FFFFFF;
+  --card-border: #E4E4E7;
+  --input: #FAFAFA;
+  --pill: #F4F4F5;
+  --track: #F4F4F5;
+  --tint: #F7F7F8;
+  --ink-950: #0A0A0A;
+  --ink-900: #121212;
+  --ink-800: #1C1C1E;
+
+  /* color / text */
+  --t1: #0A0A0A;
+  --t2: #52525B;
+  --t3: #71717A;
+  --t4: #D4D4D8;
+  --on-accent: #FFFFFF;
+  --inv-1: #FFFFFF;
+  --inv-2: rgba(255, 255, 255, .62);
+
+  /* color / line */
+  --line: rgba(10, 10, 10, .08);
+  --line-subtle: #F4F4F5;
+  --line-inv: rgba(255, 255, 255, .10);
+  --divider: #EDEDEF;
+
+  /* color / accent */
+  --accent: #0A0A0A;
+  --accent-ink: #000000;
+  --accent-soft: #D4D4D8;
+
+  /* color / status */
+  --status-success: #3F3F46;
+  --status-warning: #71717A;
+  --status-danger: #18181B;
+  --status-neutral-alt: #A1A1AA;
+
+  /* gradients */
+  --grad-metric: linear-gradient(180deg, #FFFFFF 22%, #A1A1AA 82%);
+  --grad-stage: radial-gradient(120% 90% at 18% 8%, #52525B 0%, #1C1C1E 46%, #0A0A0A 100%);
+  --grad-paper: linear-gradient(180deg, #FFFFFF 0%, #F7F7F8 100%);
+
+  /* typography */
+  --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono-label: 'Montserrat', sans-serif;
+  --weight-heading: 300;
+  --weight-body: 300;
+  --weight-emphasis: 400;
+  --weight-label: 500;
+
+  --scale-display: clamp(44px, 6vw, 80px);
+  --scale-h2: clamp(32px, 3.6vw, 52px);
+  --scale-h3: clamp(20px, 1.8vw, 28px);
+  --scale-mega: clamp(56px, 9vw, 128px);
+  --scale-metric: clamp(60px, 6vw, 92px);
+  --scale-body: 17px;
+  --scale-body-sm: 15px;
+  --scale-caption: 13px;
+  --scale-label: 11px;
+
+  --tracking-display: -0.045em;
+  --tracking-h2: -0.035em;
+  --tracking-h3: -0.02em;
+  --tracking-label: 0.1em;
+
+  --leading-display: 1.0;
+  --leading-heading: 1.1;
+  --leading-body: 1.55;
+  --leading-tight: 1.22;
+
+  /* space */
+  --gutter: clamp(16px, 4vw, 48px);
+  --section: clamp(96px, 12vw, 176px);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 10px;
+  --space-4: 14px;
+  --space-5: 18px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 36px;
+  --space-9: 48px;
+  --space-10: 72px;
+
+  /* radius */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* shadow */
+  --shadow-card: 0px 1px 2px rgba(10, 10, 10, .05);
+  --shadow-drop: 0px 4px 8px rgba(10, 10, 10, .08);
+  --shadow-win: 0px 20px 40px rgba(10, 10, 10, .15);
+  --shadow-stage: 0 40px 80px -32px rgba(10, 10, 10, .45);
+
+  /* motion */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-std: cubic-bezier(.4, 0, .2, 1);
+  --motion-fast: 200ms;
+  --motion-base: 280ms;
+  --motion-slow: 400ms;
+  --motion-reveal: 900ms;
+
+  /* breakpoints (referência — usados só em media queries manuais) */
+  --bp-sm: 600px;
+  --bp-md: 760px;
+  --bp-lg: 920px;
+  --bp-content: 1280px;
+}

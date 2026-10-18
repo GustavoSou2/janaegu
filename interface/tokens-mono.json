@@ -1,0 +1,94 @@
+{
+  "name": "Alicercei",
+  "version": 1,
+  "note": "Paleta monocromática — preto e branco. Mesma estrutura de tokens, acento neutralizado.",
+  "color": {
+    "themes": [{ "id": "light", "name": "Claro" }],
+    "surface": {
+      "bg-app": "#F4F4F5",
+      "bg-canvas": "#FFFFFF",
+      "card": "#FFFFFF",
+      "card-border": "#E4E4E7",
+      "input": "#FAFAFA",
+      "pill": "#F4F4F5",
+      "track": "#F4F4F5",
+      "tint": "#F7F7F8",
+      "ink-950": "#0A0A0A",
+      "ink-900": "#121212",
+      "ink-800": "#1C1C1E"
+    },
+    "text": {
+      "t1": "#0A0A0A",
+      "t2": "#52525B",
+      "t3": "#71717A",
+      "t4": "#D4D4D8",
+      "on-accent": "#FFFFFF",
+      "inv-1": "#FFFFFF",
+      "inv-2": "rgba(255,255,255,.62)"
+    },
+    "line": {
+      "line": "rgba(10,10,10,.08)",
+      "line-subtle": "#F4F4F5",
+      "line-inv": "rgba(255,255,255,.10)",
+      "divider": "#EDEDEF"
+    },
+    "accent": {
+      "accent": "#0A0A0A",
+      "accent-ink": "#000000",
+      "accent-soft": "#D4D4D8"
+    },
+    "status": {
+      "success": "#3F3F46",
+      "warning": "#71717A",
+      "danger": "#18181B",
+      "neutral-alt": "#A1A1AA"
+    },
+    "gradient": {
+      "grad-metric": "linear-gradient(180deg, #FFFFFF 22%, #A1A1AA 82%)",
+      "grad-stage": "radial-gradient(120% 90% at 18% 8%, #52525B 0%, #1C1C1E 46%, #0A0A0A 100%)",
+      "grad-paper": "linear-gradient(180deg, #FFFFFF 0%, #F7F7F8 100%)"
+    }
+  },
+  "typography": {
+    "families": {
+      "heading": "'Plus Jakarta Sans', system-ui, sans-serif",
+      "body": "Inter, system-ui, sans-serif",
+      "mono-label": "Montserrat, sans-serif"
+    },
+    "weights": { "heading": 300, "body": 300, "emphasis": 400, "label": 500 },
+    "scale": {
+      "display": "clamp(44px, 6vw, 80px)",
+      "h2": "clamp(32px, 3.6vw, 52px)",
+      "h3": "clamp(20px, 1.8vw, 28px)",
+      "mega": "clamp(56px, 9vw, 128px)",
+      "metric": "clamp(60px, 6vw, 92px)",
+      "body": "17px",
+      "body-sm": "15px",
+      "caption": "13px",
+      "label": "11px"
+    },
+    "tracking": { "display": "-0.045em", "h2": "-0.035em", "h3": "-0.02em", "label": "0.1em" },
+    "leading": { "display": "1.0", "heading": "1.1", "body": "1.55", "tight": "1.22" }
+  },
+  "space": {
+    "gutter": "clamp(16px, 4vw, 48px)",
+    "section": "clamp(96px, 12vw, 176px)",
+    "scale": ["4px", "8px", "10px", "14px", "18px", "24px", "28px", "36px", "48px", "72px"]
+  },
+  "radius": { "xs": "6px", "sm": "8px", "md": "12px", "lg": "20px", "xl": "32px", "pill": "999px" },
+  "shadow": {
+    "card": "0px 1px 2px rgba(10,10,10,.05)",
+    "drop": "0px 4px 8px rgba(10,10,10,.08)",
+    "win": "0px 20px 40px rgba(10,10,10,.15)",
+    "stage": "0 40px 80px -32px rgba(10,10,10,.45)"
+  },
+  "motion": {
+    "ease-out": "cubic-bezier(.22,1,.36,1)",
+    "ease-std": "cubic-bezier(.4,0,.2,1)",
+    "fast": "200ms",
+    "base": "280ms",
+    "slow": "400ms",
+    "reveal": "900ms"
+  },
+  "breakpoint": { "sm": "600px", "md": "760px", "lg": "920px", "content": "1280px" }
+}
